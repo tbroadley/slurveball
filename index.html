@@ -67,9 +67,9 @@
         // This creates a basic Babylon Scene object (non-mesh)
         var scene = new BABYLON.Scene(engine);
 
-var gravityVector = new BABYLON.Vector3(0,0,0);
-var physicsPlugin = new BABYLON.CannonJSPlugin();
-scene.enablePhysics(gravityVector, physicsPlugin);
+        var gravityVector = new BABYLON.Vector3(0, 0, 0);
+        var physicsPlugin = new BABYLON.CannonJSPlugin();
+        scene.enablePhysics(gravityVector, physicsPlugin);
 
         var camera = new BABYLON.TargetCamera(
           "camera1",
@@ -100,16 +100,30 @@ scene.enablePhysics(gravityVector, physicsPlugin);
           scene
         );
 
-	      var sphereImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.SphereImpostor, { mass: 1, restitution: 1 }, scene);
-	sphere.physicsImpostor = sphereImpostor;
+        var sphereImpostor = new BABYLON.PhysicsImpostor(
+          sphere,
+          BABYLON.PhysicsImpostor.SphereImpostor,
+          { mass: 1, restitution: 1 },
+          scene
+        );
+        sphere.physicsImpostor = sphereImpostor;
 
-	      sphereImpostor.setLinearVelocity(new BABYLON.Vector3(0,0,10));
+        sphereImpostor.setLinearVelocity(new BABYLON.Vector3(0, 0, 10));
 
-	      var opponentPaddle = BABYLON.MeshBuilder.CreateBox("opponentPaddle", { width: 10, height: 5, depth: 1 } )
-	      opponentPaddle.position = new BABYLON.Vector3(0, 0, 10);
+        var opponentPaddle = BABYLON.MeshBuilder.CreateBox("opponentPaddle", {
+          width: 10,
+          height: 5,
+          depth: 1,
+        });
+        opponentPaddle.position = new BABYLON.Vector3(0, 0, 10);
 
-	      var opponentPaddleImpostor = new BABYLON.PhysicsImpostor(opponentPaddle, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 1, restitution: 1 }, scene);
-	opponentPaddle.physicsImpostor = opponentPaddleImpostor;
+        var opponentPaddleImpostor = new BABYLON.PhysicsImpostor(
+          opponentPaddle,
+          BABYLON.PhysicsImpostor.BoxImpostor,
+          { mass: 0, restitution: 1 },
+          scene
+        );
+        opponentPaddle.physicsImpostor = opponentPaddleImpostor;
 
         return scene;
       };
