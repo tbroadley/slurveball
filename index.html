@@ -73,7 +73,7 @@
 
         var camera = new BABYLON.TargetCamera(
           "camera1",
-          new BABYLON.Vector3(0, 1, -10),
+          new BABYLON.Vector3(0, 0, -30),
           scene
         );
 
@@ -109,6 +109,21 @@
         sphere.physicsImpostor = sphereImpostor;
 
         sphereImpostor.setLinearVelocity(new BABYLON.Vector3(0, 0, 10));
+
+        var playerPaddle = BABYLON.MeshBuilder.CreateBox("playerPaddle", {
+          width: 10,
+          height: 5,
+          depth: 1,
+        });
+        playerPaddle.position = new BABYLON.Vector3(0, 0, -10);
+
+        var playerPaddleImpostor = new BABYLON.PhysicsImpostor(
+          playerPaddle,
+          BABYLON.PhysicsImpostor.BoxImpostor,
+          { mass: 0, restitution: 1 },
+          scene
+        );
+        playerPaddle.physicsImpostor = playerPaddleImpostor;
 
         var opponentPaddle = BABYLON.MeshBuilder.CreateBox("opponentPaddle", {
           width: 10,
