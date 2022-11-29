@@ -153,6 +153,13 @@
         );
         opponentPaddle.physicsImpostor = opponentPaddleImpostor;
 
+    if (BABYLON.VideoRecorder.IsSupported(engine)) {
+        var recorder = new BABYLON.VideoRecorder(engine);
+        recorder.startRecording("demo.webm", 2);
+    }
+
+    return scene;
+
         return scene;
       };
       window.initFunction = async function () {
