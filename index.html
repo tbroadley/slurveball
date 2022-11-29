@@ -110,12 +110,24 @@
 
         sphereImpostor.setLinearVelocity(new BABYLON.Vector3(0, 0, 10));
 
+        var paddleMaterial = new BABYLON.StandardMaterial(
+          "paddleMaterial",
+          scene
+        );
+        var paddleTexture = new BABYLON.Texture(
+          "/textures/paddle-texture.png",
+          scene
+        );
+        paddleTexture.getAlphaFromRGB = true;
+        paddleMaterial.opacityTexture = paddleTexture;
+
         var playerPaddle = BABYLON.MeshBuilder.CreateBox("playerPaddle", {
           width: 10,
           height: 5,
           depth: 1,
         });
         playerPaddle.position = new BABYLON.Vector3(0, 0, -10);
+        playerPaddle.material = paddleMaterial;
 
         var playerPaddleImpostor = new BABYLON.PhysicsImpostor(
           playerPaddle,
@@ -131,6 +143,7 @@
           depth: 1,
         });
         opponentPaddle.position = new BABYLON.Vector3(0, 0, 10);
+        opponentPaddle.material = paddleMaterial;
 
         var opponentPaddleImpostor = new BABYLON.PhysicsImpostor(
           opponentPaddle,
