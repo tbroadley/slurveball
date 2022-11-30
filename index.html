@@ -43,6 +43,17 @@
   <body>
     <canvas id="renderCanvas"></canvas>
     <script>
+ const screenToWorld = function(x, y, z, engine, scene) {
+  const screenPosition = new BABYLON.Vector3(x, y, z)
+  const viewMatrix = scene.getViewMatrix()
+  const projectionMatrix = scene.getProjectionMatrix()
+  if (!viewMatrix || !projectionMatrix) {
+    return BABYLON.Vector3.Zero()
+  }
+  const vector = BABYLON.Vector3.Unproject(screenPosition, engine.getRenderWidth(), engine.getRenderHeight(), BABYLON.Matrix.Identity(), viewMatrix, projectionMatrix)
+  return vector
+}
+
       var canvas = document.getElementById("renderCanvas");
 
       var startRenderLoop = function (engine, canvas) {
@@ -152,6 +163,11 @@
           scene
         );
         opponentPaddle.physicsImpostor = opponentPaddleImpostor;
+
+		      scene.onBeforeRenderObservable.add(() => {
+			      const position = screenToWorld(scene.pointerX, scene.pointerY, 0.95, engine, scene);
+		      playerPaddle.position = position
+	      });
 
     // if (BABYLON.VideoRecorder.IsSupported(engine)) {
         // var recorder = new BABYLON.VideoRecorder(engine);
